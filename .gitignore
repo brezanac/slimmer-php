@@ -1,0 +1,8 @@
+.env
+!.docker/.env
+.idea
+.docker/mysql/data/
+node_modules
+storage/cache/*
+storage/logs/*
+vendor

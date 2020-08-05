@@ -1,0 +1,146 @@
+{
+    "name": "slimmer-php",
+    "version": "2.0.0",
+    "description": "A small PHP based skeleton application.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Miša Brežanac <brezanac@gmail.com>",
+    "license": "UNLICENCED",
+    "private": true,
+    "config": {
+        "publicAssetsPath": "public_html/assets",
+        "defaultEncoding": "utf8",
+        "cleanup": {
+            "before": [
+                "public_html/assets/**",
+                "storage/rev-manifest.json"
+            ],
+            "after": []
+        },
+        "scss": {
+            "src": "resources/scss/**/*.scss",
+            "dest": "public_html/assets/css",
+            "path": "resources/scss",
+            "includePaths": [
+                "resources/scss"
+            ],
+            "sourceMapsPath": "./sourcemaps"
+        },
+        "css": {
+            "src": [
+                "public_html/assets/css/**/*.css",
+                "!public_html/assets/css/app-bundle.css"
+            ],
+            "dest": "public_html/assets/css",
+            "bundleName": "app-bundle.css",
+            "sourceMapsPath": "./sourcemaps",
+            "critical": {
+                "src": "",
+                "dimensions": [
+                    {
+                        "width": 375,
+                        "height": 667
+                    },
+                    {
+                        "width": 1200,
+                        "height": 900
+                    },
+                    {
+                        "width": 1800,
+                        "height": 1200
+                    }
+                ]
+            }
+        },
+        "js": {
+            "src": [
+                "resources/js/**/*.js"
+            ],
+            "dest": "public_html/assets/js",
+            "sourceMapsPath": "./sourcemaps"
+        },
+        "fonts": {
+            "src": "resources/fonts/**/*.+(woff|woff2)",
+            "dest": "public_html/assets/fonts"
+        },
+        "images": {
+            "src": [
+                "resources/images/**/*.+(jpg|png|gif|svg)"
+            ],
+            "dest": "public_html/assets/images",
+            "options": {
+                "verbose": true,
+                "gifsicle": {
+                    "interlaced": true
+                },
+                "jpegtran": {
+                    "progressive": true
+                },
+                "optipng": {
+                    "optimizationLevel": 7
+                },
+                "svgo": {
+                    "plugins": [
+                        {
+                            "removeViewBox": false
+                        },
+                        {
+                            "cleanupIDs": false
+                        }
+                    ]
+                }
+            }
+        },
+        "svg": {
+            "src": [
+                "resources/images/**/*.svg"
+            ],
+            "dest": "public_html/assets/images",
+            "bundleName": "app-bundle.svg"
+        },
+        "rev": {
+            "src": [
+                "public_html/assets/**/*.{css,js,jpg,png,jpeg,gif,svg,woff,woff2,ttf,otf,eot}"
+            ],
+            "base": "public_html",
+            "dest": "public_html",
+            "manifest": {
+                "revPath": "../storage/rev-manifest.json",
+                "rootPath": "storage/rev-manifest.json",
+                "injectPaths": [
+                    "public_html/**/*.{css,js}"
+                ]
+            }
+        }
+    },
+    "devDependencies": {
+        "del": "^5.1.0",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^7.0.1",
+        "gulp-cached": "^1.1.1",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-imagemin": "^7.1.0",
+        "gulp-load-plugins": "^2.0.3",
+        "gulp-order": "^1.2.0",
+        "gulp-plumber": "^1.2.1",
+        "gulp-rename": "^2.0.0",
+        "gulp-rev": "^9.0.0",
+        "gulp-rev-delete-original": "^0.2.3",
+        "gulp-rev-rewrite": "^3.0.3",
+        "gulp-sass": "^4.1.0",
+        "gulp-sass-inheritance": "^1.1.2",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-svgmin": "^2.2.0",
+        "gulp-svgstore": "^7.0.1",
+        "gulp-uglify": "^3.0.2"
+    },
+    "directories": {
+        "test": "tests"
+    },
+    "dependencies": {
+        "tiny-slider": "^2.9.2"
+    }
+}

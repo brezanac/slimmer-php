@@ -1,0 +1,18 @@
+/**
+ * Utility functions.
+ *
+ * @author Miša Brežanac <brezanac@gmail.com>
+ */
+
+/*
+ * Retrieves color values from the $colors map.
+ * $key string Name of the key for which the color value is retrieved.
+ */
+@function color($key) {
+    @if map-has-key($colors, $key) {
+        @return map-get($colors, $key);
+    }
+
+    @warn "Unknown color `#{$key}` in $colors.";
+    @return null;
+}

@@ -1,0 +1,34 @@
+/**
+ * Main application SCSS file.
+ *
+ * @author Miša Brežanac <brezanac@gmail.com>
+ */
+
+@import "partials/layout";
+@import "partials/typography";
+@import "partials/utils";
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: color(primary);
+}
+
+.title {
+    font-family: "Open Sans Condensed Bold", Arial, sans-serif;
+    font-size: 8vh;
+    color: color(tertiary);
+    text-shadow: 0.047em 0.047em #981e32;
+}
+
+.environment {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 0.8em;
+    color: color(secondary);
+
+    .name {
+        color: color(tertiary);
+    }
+}
+
+

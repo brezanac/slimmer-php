@@ -1,0 +1,27 @@
+/**
+ * Typography related SCSS (fonts etc.)
+ *
+ * @author Miša Brežanac <brezanac@gmail.com>
+ */
+
+/* Roboto Regular - Latin + Latin Extended */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+    url('/assets/fonts/roboto-regular.woff2') format('woff2'),
+    url('/assets/fonts/roboto-regular.woff') format('woff');
+}
+
+/* Open Sans Condensed Bold (700) - Latin + Latin Extended */
+@font-face {
+    font-family: 'Open Sans Condensed Bold';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Condensed Bold'), local('OpenSansCondensed-Bold'),
+    url('/assets/fonts/open-sans-condensed-bold.woff2') format('woff2'),
+    url('/assets/fonts/open-sans-condensed-bold.woff') format('woff');
+}
+
+
