@@ -77,8 +77,13 @@ class Page
                 return $originalAsset;
             }
         });
-
         $twig->addFunction($revision);
+
+        //Adding a small Twig function to return on demand HTTP codes as response to the requested page.
+        $response = new Twig\TwigFunction('response', function ($response) {
+            http_response_code($response);
+        });
+        $twig->addFunction($response);
 
         // Displaying the actual page.
         if (is_file(realpath(sprintf('%s/pages/%s.twig', $templatesPath, $uri)))) {
