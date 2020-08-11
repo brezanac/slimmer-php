@@ -48,7 +48,7 @@ function scss() {
 /*
  * Creates a bundle with all the CSS code (transpiled SCSS too).
  * Autoprefixes bundled CSS.
- * Minifies bunlded CSS.
+ * Minifies bundled CSS.
  * Creates source maps for bundled CSS.
  */
 function css() {
