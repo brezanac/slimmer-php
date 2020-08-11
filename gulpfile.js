@@ -64,23 +64,6 @@ function css() {
 }
 
 /*
- * Generates critical CSS for injecting into the page.
- * TODO Needs implementing into the build chain.
- */
-function critical() {
-    plugins.plumber({errorHandler: onError});
-    plugins.critical.generate({
-        base: config.css.critical.src,
-        inline: true,
-        src: 'index.html',
-        dest: 'index.html',
-        dimensions: config.css.critical.dimensions,
-        ignore: ['@font-face', /url\(/],
-        minify: true
-    })
-}
-
-/*
  * Minifies JavaScript resources (each separately).
  * Creates JavaScript sourcemaps.
  */
