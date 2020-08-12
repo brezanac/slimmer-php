@@ -15,6 +15,11 @@ const config = require('./package').config;
 const gulp = require('gulp');
 
 /**
+ * Node.js module for path manipulation.
+ */
+const path = require('path');
+
+/**
  * Dependency loader for gulp plugins.
  */
 const plugins = require('gulp-load-plugins')({
@@ -107,7 +112,7 @@ function svg() {
     return gulp.src(config.svg.src)
         .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.svgmin(function getOptions(file) {
-            var prefix = plugins.path.basename(file.relative, plugins.path.extname(file.relative));
+            var prefix = path.basename(file.relative, path.extname(file.relative));
             return {
                 plugins: [{
                     cleanupIDs: {
