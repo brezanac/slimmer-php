@@ -16,6 +16,10 @@ use Twig\Loader\FilesystemLoader;
  */
 class Page
 {
+    /**
+     * @var array $manifest Manifest data for the revisioned static assets.
+     */
+    private static $manifest;
 
     public function __construct()
     {
@@ -54,15 +58,17 @@ class Page
                 $revisionedAsset = $originalAsset;
 
                 if ($settings['twig']['revisionAssets']) {
-                    $manifestPath = sprintf('%s/%s', $settings['basePath'], $settings['twig']['manifestPath']);
-
-                    if (!is_file($manifestPath)) {
-                        throw new PageException(PageException::MISSING_MANIFEST_FILE, ['manifestPath' => $manifestPath]);
+                    // If the manifest data isn't already loaded, it needs to be loaded and statically stored.
+                    if (!isset(self::$manifest)) {
+                        $manifestPath = sprintf('%s/%s', $settings['basePath'], $settings['twig']['manifestPath']);
+                        if (!is_file($manifestPath)) {
+                            throw new PageException(PageException::MISSING_MANIFEST_FILE, ['manifestPath' => $manifestPath]);
+                        }
+                        self::$manifest = json_decode(file_get_contents(realpath($manifestPath)), true);
                     }
 
                     // Reading the manifest file and searching for a static asset replacement candidate.
-                    $manifest = json_decode(file_get_contents(realpath($manifestPath)), true);
-                    foreach ($manifest as $manifestOriginal => $manifestRevisioned) {
+                    foreach (self::$manifest as $manifestOriginal => $manifestRevisioned) {
                         if ($manifestOriginal === $originalAsset) {
                             $revisionedAsset = $manifestRevisioned;
                             break;
@@ -71,6 +77,7 @@ class Page
                 }
 
                 return $revisionedAsset;
+
             } catch (PageException $e) {
                 Log::log($e->getMessage(), $e->getSeverity(), $e->getContext());
                 // In case of an exception, Twig must return the original asset URI!
