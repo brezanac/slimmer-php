@@ -4,15 +4,6 @@
  * @author Miša Brežanac <brezanac@gmail.com>
  */
 
-/*
-* The list of colors used throughout the app.
-*/
-$colors: (
-    primary: #0269A4,
-    secondary: #FFF,
-    tertiary: #FFE160
-);
-
 .wrapper {
     display: grid;
     grid-template-columns: 1fr;

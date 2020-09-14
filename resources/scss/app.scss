@@ -4,9 +4,11 @@
  * @author Miša Brežanac <brezanac@gmail.com>
  */
 
+@import "partials/variables";
 @import "partials/utils";
 @import "partials/layout";
 @import "partials/typography";
+@import "partials/animations";
 
 body {
     margin: 0;
@@ -19,6 +21,7 @@ body {
     font-size: 8vh;
     color: color(tertiary);
     text-shadow: 0.047em 0.047em #981e32;
+    animation: rubberBand 1.5s cubic-bezier(0.8, 0, 0, 0.8);
 }
 
 .environment {

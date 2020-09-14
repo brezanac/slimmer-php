@@ -16,3 +16,16 @@
     @warn "Unknown color `#{$key}` in $colors.";
     @return null;
 }
+
+/*
+ * Retrieves default values from the $defaults map.
+ * $key string Name of the key for which the default value is retrieved.
+ */
+@function default($key) {
+    @if map-has-key($defaults, $key) {
+        @return map-get($defaults, $key);
+    }
+
+    @warn "Unknown default `#{$key}` in $defaults.";
+    @return null;
+}
