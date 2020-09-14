@@ -40,6 +40,19 @@ class Page
         $templatesPath = sprintf('%s/%s', $settings['basePath'], $settings['twig']['templatesPath']);
         $cachePath = sprintf('%s/%s', $settings['basePath'], $settings['twig']['cachePath']);
 
+        // Loading the static assets manifest file if revisioning is enabled.
+        try {
+            if ($settings['twig']['revisionAssets'] && !isset(self::$manifest)) {
+                $manifestPath = sprintf('%s/%s', $settings['basePath'], $settings['twig']['manifestPath']);
+                if (!is_file($manifestPath)) {
+                    throw new PageException(PageException::MISSING_MANIFEST_FILE, ['manifestPath' => $manifestPath]);
+                }
+                self::$manifest = json_decode(file_get_contents(realpath($manifestPath)), true);
+            }
+        } catch (PageException $e) {
+            Log::log($e->getMessage(), $e->getSeverity(), $e->getContext());
+        }
+
         // Making sure a request for '/' points to the index page.
         if ($uri == '/') {
             $uri = 'index';
@@ -51,46 +64,8 @@ class Page
             'cache' => $cachePath,
             'debug' => $settings['twig']['debugMode']
         ]);
-
-        // Adding static asset revisioning, if enabled.
-        $revision = new Twig\TwigFunction('assets', function ($originalAsset) use ($settings) {
-            try {
-                $revisionedAsset = $originalAsset;
-
-                if ($settings['twig']['revisionAssets']) {
-                    // If the manifest data isn't already loaded, it needs to be loaded and statically stored.
-                    if (!isset(self::$manifest)) {
-                        $manifestPath = sprintf('%s/%s', $settings['basePath'], $settings['twig']['manifestPath']);
-                        if (!is_file($manifestPath)) {
-                            throw new PageException(PageException::MISSING_MANIFEST_FILE, ['manifestPath' => $manifestPath]);
-                        }
-                        self::$manifest = json_decode(file_get_contents(realpath($manifestPath)), true);
-                    }
-
-                    // Reading the manifest file and searching for a static asset replacement candidate.
-                    foreach (self::$manifest as $manifestOriginal => $manifestRevisioned) {
-                        if ($manifestOriginal === $originalAsset) {
-                            $revisionedAsset = $manifestRevisioned;
-                            break;
-                        }
-                    }
-                }
-
-                return $revisionedAsset;
-
-            } catch (PageException $e) {
-                Log::log($e->getMessage(), $e->getSeverity(), $e->getContext());
-                // In case of an exception, Twig must return the original asset URI!
-                return $originalAsset;
-            }
-        });
-        $twig->addFunction($revision);
-
-        //Adding a small Twig function to return on demand HTTP codes as response to the requested page.
-        $response = new Twig\TwigFunction('response', function ($response) {
-            http_response_code($response);
-        });
-        $twig->addFunction($response);
+        // Adding the app-wide Twig extension.
+        $twig->addExtension(new TwigAssets());
 
         // Displaying the actual page.
         if (is_file(realpath(sprintf('%s/pages/%s.twig', $templatesPath, $uri)))) {
@@ -98,6 +73,14 @@ class Page
         } else {
             $this->show404();
         }
+    }
+
+    /**
+     * Returns the static assets manifest.
+     */
+    public static function getManifest()
+    {
+        return self::$manifest;
     }
 
     /**
