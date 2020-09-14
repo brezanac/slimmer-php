@@ -7,3 +7,4 @@ storage/cache/*
 storage/logs/*
 vendor
 public_html/assets/*
+storage/rev-manifest.json
