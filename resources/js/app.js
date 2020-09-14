@@ -6,6 +6,8 @@
 
 window.App = {
     init: function () {
-
+        console.log('Hello, Slimmer!');
     }
 };
+
+App.init();
