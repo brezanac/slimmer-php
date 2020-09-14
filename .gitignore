@@ -6,3 +6,4 @@ node_modules
 storage/cache/*
 storage/logs/*
 vendor
+public_html/assets/*

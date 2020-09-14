@@ -1,1 +1,0 @@
-{"version":3,"file":"../app.js","sources":["app.js"],"sourcesContent":["/**\n * Main application JavaScript file.\n *\n * @author Miša Brežanac <brezanac@gmail.com>\n */\n\nwindow.App = {\n    init: function () {\n\n    }\n};\n"],"names":["window","App","init"],"mappings":"AAMAA,OAAOC,IAAM,CACTC,KAAM"}
