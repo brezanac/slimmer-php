@@ -60,7 +60,6 @@ function css() {
     return gulp.src(config.css.src)
         .pipe(plugins.plumber({errorHandler: onError}))
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.cached('css_cache'))
         .pipe(plugins.autoprefixer())
         .pipe(plugins.cleanCss())
         .pipe(plugins.concat(config.css.bundleName))
